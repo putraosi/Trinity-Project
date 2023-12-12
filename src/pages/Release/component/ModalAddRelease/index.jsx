@@ -2,27 +2,9 @@ import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Modal, Space } from "antd";
 import React from "react";
 import { Separator } from "../../../../components";
-import { EDIT } from "../../../../utils";
+import { EDIT, formItemLayout } from "../../../../utils";
 import "./ModalAddRelease.css";
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
 
 const ModalAddRelease = ({ type, isOpen, onOk, onCancel }) => {
   const [form] = Form.useForm();
