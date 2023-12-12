@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 
-export const Columns = () => {
+export const Columns = ({ onSelect }) => {
   return [
     {
       title: "No",
@@ -16,7 +16,7 @@ export const Columns = () => {
       dataIndex: "artits_name",
       key: "artits_name",
       render: (_, item, index) => {
-        return <a>{"Noah"}</a>;
+        return <a onClick={() => onSelect(item)}>{`${item?.firstName} ${item?.lastName}` }</a>;
       },
     },
     {
@@ -24,7 +24,7 @@ export const Columns = () => {
       dataIndex: "number_of_recording",
       key: "number_of_recording",
       render: (_, item, index) => {
-        return <p>{"40"}</p>;
+        return <p>{item?.royaltyRate}</p>;
       },
     },
     {
@@ -32,7 +32,7 @@ export const Columns = () => {
       dataIndex: "number_of_releases",
       key: "number_of_releases",
       render: (_, item, index) => {
-        return <p>{"19"}</p>;
+        return <p>{item?.contractNum}</p>;
       },
     },
   ];

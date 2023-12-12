@@ -1,39 +1,99 @@
-import { Button, Table } from "antd";
+import { Button, Spin, Table } from "antd";
 import Search from "antd/es/input/Search";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "../../components";
+import { Api } from "../../services";
+import { EDIT } from "../../utils";
 import "./Recording.css";
 import { Columns, ModalAddRecording } from "./component";
 
-const dataDummy = [1, 2, 3, 4, 5];
-
 const Recording = () => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [dataSelected, setDataSelected] = useState();
 
-  const onSearch = (value) => {
-    console.log("cek val", value);
+  useEffect(() => {
+    getLists();
+  }, []);
+
+  const getLists = async (name = "") => {
+    try {
+      const res = await Api.get({
+        url: "recordings",
+        params: {
+          name,
+        },
+      });
+
+      setData(res?.data);
+      setLoading(false);
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
   };
 
+  const onSelect = (select) => {
+    setDataSelected(select);
+    setIsOpenEdit(true);
+  };
+
+  const onSearch = (value) => {
+    setLoading(true);
+    getLists(value);
+  };
+
+  console.log('cek dat', data);
+
   return (
-    <Container title={"Recording"}>
-      <Search placeholder="input search text" onSearch={onSearch} />
+    <Spin spinning={loading}>
+      <Container title={"Recording"}>
+        <Search
+          value={search}
+          placeholder="input search text"
+          onChange={(e) => setSearch(e?.target?.value)}
+          onSearch={onSearch}
+        />
 
-      <Button
-        className="button_add"
-        type="primary"
-        onClick={() => setIsOpenAdd(true)}
-      >
-        Add File
-      </Button>
+        <Button
+          className="button_add"
+          type="primary"
+          onClick={() => setIsOpenAdd(true)}
+        >
+          Add File
+        </Button>
 
-      <Table columns={Columns()} dataSource={dataDummy} />
+        <Table
+          columns={Columns({ onSelect: (select) => onSelect(select) })}
+          dataSource={data}
+        />
 
-      <ModalAddRecording
-        isOpen={isOpenAdd}
-        onCancel={() => setIsOpenAdd(false)}
-        onOk={() => alert("Coming Soon")}
-      />
-    </Container>
+        <ModalAddRecording
+          isOpen={isOpenAdd}
+          onCancel={() => setIsOpenAdd(false)}
+          onOk={() => {
+            setIsOpenAdd(false);
+            getLists();
+          }}
+        />
+
+        {isOpenEdit && dataSelected && (
+          <ModalAddRecording
+            type={EDIT}
+            isOpen={isOpenEdit}
+            data={dataSelected}
+            onCancel={() => setIsOpenEdit(false)}
+            onOk={() => {
+              setIsOpenEdit(false);
+              getLists();
+            }}
+          />
+        )}
+      </Container>
+    </Spin>
   );
 };
 

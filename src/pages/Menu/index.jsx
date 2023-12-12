@@ -28,13 +28,13 @@ const items = [
   ]),
   getItem("Contributors", "contributors", null, [
     getItem("Artists", ARTITS_PATH),
-    getItem("Persons", PERSONS_PATH),
-    getItem("Composers", COMPOSERS_PATH),
+    // getItem("Persons", PERSONS_PATH),
+    // getItem("Composers", COMPOSERS_PATH),
   ]),
-  getItem("Companies", "companies", null, [
-    getItem("Label", LABEL_PATH),
-    getItem("Publishers", PUBLISHERS_PATH),
-  ]),
+  // getItem("Companies", "companies", null, [
+  //   getItem("Label", LABEL_PATH),
+  //   getItem("Publishers", PUBLISHERS_PATH),
+  // ]),
 ];
 
 const MenuBar = () => {

@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { secondsToTime } from "../../../helpers";
 
-export const Columns = () => {
+export const Columns = ({ onSelect }) => {
   return [
     {
       title: "No",
@@ -16,7 +17,7 @@ export const Columns = () => {
       dataIndex: "recording_title",
       key: "recording_title",
       render: (_, item, index) => {
-        return <a>{"Sajadah Panjang"}</a>;
+        return <a onClick={() => onSelect(item)}>{item?.title}</a>;
       },
     },
     {
@@ -24,7 +25,7 @@ export const Columns = () => {
       dataIndex: "albums",
       key: "albums",
       render: (_, item, index) => {
-        return <p>{"Sing Lengend"}</p>;
+        return <p>{"-"}</p>;
       },
     },
     {
@@ -32,7 +33,7 @@ export const Columns = () => {
       dataIndex: "main_artits",
       key: "main_artits",
       render: (_, item, index) => {
-        return <p>{"Noah"}</p>;
+        return <p>{item?.artist?.firstName}</p>;
       },
     },
     {
@@ -40,7 +41,7 @@ export const Columns = () => {
       dataIndex: "duration",
       key: "duration",
       render: (_, item, index) => {
-        return <p>{"4:54"}</p>;
+        return <p>{secondsToTime(item?.duration)}</p>;
       },
     },
   ];

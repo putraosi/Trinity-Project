@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { moments } from "../../../helpers";
 
-export const Columns = () => {
+export const Columns = ({ onSelect }) => {
   return [
     {
       title: "No",
@@ -16,7 +17,7 @@ export const Columns = () => {
       dataIndex: "releases",
       key: "releases",
       render: (_, item, index) => {
-        return <a>{"Sing Lengend"}</a>;
+        return <a onClick={() => onSelect(item)}>{item?.title}</a>;
       },
     },
     {
@@ -24,7 +25,7 @@ export const Columns = () => {
       dataIndex: "artits",
       key: "artits",
       render: (_, item, index) => {
-        return <p>{"Noah"}</p>;
+        return <p>{"-"}</p>;
       },
     },
     {
@@ -32,7 +33,7 @@ export const Columns = () => {
       dataIndex: "date_of_releases",
       key: "date_of_releases",
       render: (_, item, index) => {
-        return <p>{"25 May 2016"}</p>;
+        return <p>{moments(item?.releaseDate).format("DD MM YYYY")}</p>;
       },
     },
     {
@@ -40,7 +41,7 @@ export const Columns = () => {
       dataIndex: "number_of_track",
       key: "number_of_track",
       render: (_, item, index) => {
-        return <p>{9}</p>;
+        return <p>{item?.releaseRecording.length}</p>;
       },
     },
   ];

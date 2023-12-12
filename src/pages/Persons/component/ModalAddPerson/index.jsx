@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 import { Separator } from "../../../../components";
 import "./ModalAddPerson.css";
+import { EDIT } from "../../../../utils";
 
 const formItemLayout = {
   labelCol: {
@@ -23,17 +24,16 @@ const formItemLayout = {
   },
 };
 
-const ModalAddPerson = ({ isOpen, onOk, onCancel }) => {
+const ModalAddPerson = ({ type, isOpen, onOk, onCancel }) => {
   const [form] = Form.useForm();
 
   const onSubmit = () => {
-    console.log("cek form", form.getFieldValue());
     onOk();
   };
 
   return (
     <Modal
-      title="Add Release"
+      title={type === EDIT ? "Edit Person" : "Add Person"}
       open={isOpen}
       onOk={onSubmit}
       onCancel={onCancel}

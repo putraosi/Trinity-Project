@@ -2,6 +2,7 @@ import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Modal, Space } from "antd";
 import React from "react";
 import { Separator } from "../../../../components";
+import { EDIT } from "../../../../utils";
 import "./ModalAddRelease.css";
 
 const formItemLayout = {
@@ -10,7 +11,7 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 4,
+      span: 8,
     },
   },
   wrapperCol: {
@@ -18,34 +19,21 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 20,
-    },
-  },
-};
-const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 20,
-      offset: 4,
+      span: 16,
     },
   },
 };
 
-const ModalAddRelease = ({ isOpen, onOk, onCancel }) => {
+const ModalAddRelease = ({ type, isOpen, onOk, onCancel }) => {
   const [form] = Form.useForm();
 
   const onSubmit = () => {
-    console.log("cek form", form.getFieldValue());
     onOk();
   };
 
   return (
     <Modal
-      title="Add Release"
+      title={type === EDIT ? "Edit Release" : "Add Release"}
       open={isOpen}
       onOk={onSubmit}
       onCancel={onCancel}
@@ -53,7 +41,7 @@ const ModalAddRelease = ({ isOpen, onOk, onCancel }) => {
       <div className="container_modal">
         <Separator />
 
-        <Form form={form} name="release_add">
+        <Form form={form} name="release_add" {...formItemLayout}>
           <Form.Item
             name="release_title"
             label="Release Title"

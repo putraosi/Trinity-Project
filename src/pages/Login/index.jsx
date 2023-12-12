@@ -1,18 +1,49 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Form, Input } from "antd";
-import React from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
 import { Separator } from "../../components";
+import { getData, storeData } from "../../helpers";
+import { Api } from "../../services";
+import { TOKEN, USER, formItemLayout } from "../../utils";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    navigate("/release", { replace: true });
-  };
+  const [loading, setLoading] = useState(false);
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  useEffect(() => {
+    const res = getData(USER);
+
+    if (res) navigate("/release", { replace: true });
+  }, []);
+
+  const onFinish = async (values) => {
+    // navigate("/release", { replace: true });
+
+    setLoading(true);
+    try {
+      const res = await Api.post({
+        url: "admins/login/",
+        body: {
+          email: values?.email.trim(),
+          password: values?.password.trim(),
+        },
+      });
+
+      const decode = jwtDecode(res?.token);
+
+      storeData(TOKEN, res?.token);
+      storeData(USER, decode);
+
+      navigate("/release", { replace: true });
+      setLoading(false);
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,16 +58,16 @@ const Login = () => {
             remember: true,
           }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
+          {...formItemLayout}
         >
           <Form.Item
-            label="Username"
-            name="username"
+            label="Email"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: "Please input your email!",
               },
             ]}
           >
@@ -62,7 +93,7 @@ const Login = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Submit
             </Button>
           </Form.Item>

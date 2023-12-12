@@ -18,6 +18,7 @@ import {
   RECORDING_PATH,
   RELEASE_PATH,
 } from "../utils";
+import Private from "./Private";
 import Sidebar from "./Sidebar";
 
 export const router = createBrowserRouter([
@@ -28,25 +29,31 @@ export const router = createBrowserRouter([
   {
     path: RELEASE_PATH,
     element: (
-      <Sidebar>
-        <Release />
-      </Sidebar>
+      <Private>
+        <Sidebar>
+          <Release />
+        </Sidebar>
+      </Private>
     ),
   },
   {
     path: RECORDING_PATH,
     element: (
-      <Sidebar>
-        <Recording />
-      </Sidebar>
+      <Private>
+        <Sidebar>
+          <Recording />
+        </Sidebar>
+      </Private>
     ),
   },
   {
     path: ARTITS_PATH,
     element: (
-      <Sidebar>
-        <Artists />
-      </Sidebar>
+      <Private>
+        <Sidebar>
+          <Artists />
+        </Sidebar>
+      </Private>
     ),
   },
   {
@@ -57,28 +64,30 @@ export const router = createBrowserRouter([
       </Sidebar>
     ),
   },
-  {
-    path: COMPOSERS_PATH,
-    element: (
-      <Sidebar>
-        <Composers />
-      </Sidebar>
-    ),
-  },
-  {
-    path: LABEL_PATH,
-    element: (
-      <Sidebar>
-        <Label />
-      </Sidebar>
-    ),
-  },
-  {
-    path: PUBLISHERS_PATH,
-    element: (
-      <Sidebar>
-        <Publishers />
-      </Sidebar>
-    ),
-  },
+  // {
+  //   path: COMPOSERS_PATH,
+  //   element: (
+  //     <Private>
+  //       <Sidebar>
+  //         <Composers />
+  //       </Sidebar>
+  //     </Private>
+  //   ),
+  // },
+  // {
+  //   path: LABEL_PATH,
+  //   element: (
+  //     <Sidebar>
+  //       <Label />
+  //     </Sidebar>
+  //   ),
+  // },
+  // {
+  //   path: PUBLISHERS_PATH,
+  //   element: (
+  //     <Sidebar>
+  //       <Publishers />
+  //     </Sidebar>
+  //   ),
+  // },
 ]);
