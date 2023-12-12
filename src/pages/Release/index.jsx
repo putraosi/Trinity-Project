@@ -48,12 +48,11 @@ const Release = () => {
     getLists(value);
   };
 
-  console.log('cek data', data);
   return (
     <Spin spinning={loading}>
       <Container title={"Release"}>
         <Search
-        value={search}
+          value={search}
           placeholder="input search text"
           onChange={(e) => setSearch(e?.target?.value)}
           onSearch={onSearch}

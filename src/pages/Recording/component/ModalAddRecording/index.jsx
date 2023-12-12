@@ -97,7 +97,6 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
           title: field?.recording_title,
           duration: parseInt(field?.duration),
         },
-        showLog: true,
       });
 
       onOk();

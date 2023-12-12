@@ -46,8 +46,6 @@ const Recording = () => {
     getLists(value);
   };
 
-  console.log('cek dat', data);
-
   return (
     <Spin spinning={loading}>
       <Container title={"Recording"}>

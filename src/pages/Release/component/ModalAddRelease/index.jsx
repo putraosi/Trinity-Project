@@ -1,23 +1,137 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Modal, Space } from "antd";
-import React from "react";
+import { Button, DatePicker, Form, Input, Modal, Select, Space } from "antd";
+import React, { useEffect, useState } from "react";
 import { Separator } from "../../../../components";
+import { moments } from "../../../../helpers";
+import { Api } from "../../../../services";
 import { EDIT, formItemLayout } from "../../../../utils";
 import "./ModalAddRelease.css";
 
-
-const ModalAddRelease = ({ type, isOpen, onOk, onCancel }) => {
+const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
   const [form] = Form.useForm();
 
-  const onSubmit = () => {
-    onOk();
+  const [loading, setLoading] = useState(false);
+  const [loadingTrack, setLoadingTrack] = useState(true);
+  const [dataTrack, setDataTrack] = useState();
+
+  useEffect(() => {
+    if (isOpen) {
+      setLoadingTrack(true);
+      getTracks();
+
+      if (type === EDIT) {
+        form.setFieldValue("release_title", data?.title);
+
+        if (data?.releaseRecording && data?.releaseRecording.length) {
+          const newTrack = [];
+
+          data.releaseRecording.forEach((element) => {
+            newTrack.push(element?.recordingId);
+          });
+          form.setFieldValue("release_title_track", newTrack);
+        }
+      }
+    }
+  }, [isOpen]);
+
+  const getTracks = async () => {
+    try {
+      const res = await Api.get({
+        url: "recordings",
+      });
+      const convert = convertdataTrack(res?.data);
+
+      setDataTrack(convert);
+      setLoadingTrack(false);
+    } catch (error) {
+      alert(error?.message);
+      setLoadingTrack(false);
+    }
+  };
+
+  const convertdataTrack = (data) => {
+    if (!data || !data.length) return null;
+
+    const newData = [];
+
+    for (const i in data) {
+      if (Object.hasOwnProperty.call(data, i)) {
+        const element = data[i];
+
+        const newItem = {
+          label: element?.title,
+          value: element?.id,
+        };
+
+        newData.push(newItem);
+      }
+    }
+
+    return newData;
+  };
+
+  const setBody = () => {
+    const field = form.getFieldValue();
+
+    const newTrack = [];
+
+    if (field?.release_title_track && field?.release_title_track.length)
+      field.release_title_track.forEach((element) => {
+        newTrack.push({
+          id: element,
+        });
+      });
+
+    return {
+      release: {
+        title: field?.release_title,
+        releaseDate: moments(field?.release_date).format("DD MM YYYY"),
+      },
+      tracks: newTrack,
+    };
+  };
+
+  const onAdd = async () => {
+    try {
+      const body = setBody();
+      await Api.post({
+        url: "releases",
+        body,
+      });
+
+      onOk();
+      form.resetFields();
+      setLoading(false);
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
+  };
+
+  const onEdit = async () => {
+    try {
+      const body = setBody();
+      await Api.post({
+        url: `releases/${data?.id}`,
+        body,
+      });
+
+      onOk();
+      form.resetFields();
+      setLoading(false);
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
   };
 
   return (
     <Modal
       title={type === EDIT ? "Edit Release" : "Add Release"}
       open={isOpen}
-      onOk={onSubmit}
+      confirmLoading={loadingTrack || loading}
+      onOk={() => (type === EDIT ? onEdit() : onAdd())}
       onCancel={onCancel}
     >
       <div className="container_modal">
@@ -69,18 +183,14 @@ const ModalAddRelease = ({ type, isOpen, onOk, onCancel }) => {
                       <Form.Item
                         {...field}
                         validateTrigger={["onChange", "onBlur"]}
-                        rules={[
-                          {
-                            required: true,
-                            whitespace: true,
-                            message: "Please input release title.",
-                          },
-                        ]}
+                        rules={[{ required: true }]}
                         noStyle
                       >
-                        <Input
-                          placeholder="release title"
-                          style={{ width: "60%" }}
+                        <Select
+                          showSearch
+                          placeholder="Select a title"
+                          optionFilterProp="children"
+                          options={dataTrack}
                         />
                       </Form.Item>
                       {fields.length > 1 ? (

@@ -69,7 +69,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
 
   return (
     <Modal
-      title={type === EDIT ? "Edit Artits" : "Add Artits"}
+      title={type === EDIT ? "Edit Artist" : "Add Artist"}
       open={isOpen}
       onOk={() => (type === EDIT ? onEdit() : onAdd())}
       confirmLoading={loading}
@@ -81,7 +81,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
         <Form form={form} name="recording_add" {...formItemLayout}>
           <Form.Item
             name="artits_name"
-            label="Artits Name"
+            label="Artist Name"
             rules={[{ required: true }]}
           >
             <Input />
@@ -97,7 +97,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
 
           <Form.Item
             name="contact_no"
-            label="Contact No"
+            label="Contract No"
             rules={[{ required: true }]}
           >
             <Input />
