@@ -21,8 +21,6 @@ const Login = () => {
   }, []);
 
   const onFinish = async (values) => {
-    // navigate("/release", { replace: true });
-
     setLoading(true);
     try {
       const res = await Api.post({

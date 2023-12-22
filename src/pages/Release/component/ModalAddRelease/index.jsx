@@ -60,7 +60,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
         const element = data[i];
 
         const newItem = {
-          label: element?.title,
+          label: `${element?.artist?.firstName} - ${element?.title}`,
           value: element?.id,
         };
 
@@ -86,7 +86,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
     return {
       release: {
         title: field?.release_title,
-        releaseDate: moments(field?.release_date).format("DD MM YYYY"),
+        releaseDate: moments(field?.release_date).format("YYYY-MM-DD"),
       },
       tracks: newTrack,
     };
@@ -133,6 +133,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
       confirmLoading={loadingTrack || loading}
       onOk={() => (type === EDIT ? onEdit() : onAdd())}
       onCancel={onCancel}
+      width={600}
     >
       <div className="container_modal">
         <Separator />
@@ -180,25 +181,28 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                       required={false}
                       key={field.key}
                     >
-                      <Form.Item
-                        {...field}
-                        validateTrigger={["onChange", "onBlur"]}
-                        rules={[{ required: true }]}
-                        noStyle
-                      >
-                        <Select
-                          showSearch
-                          placeholder="Select a title"
-                          optionFilterProp="children"
-                          options={dataTrack}
-                        />
-                      </Form.Item>
-                      {fields.length > 1 ? (
-                        <MinusCircleOutlined
-                          className="dynamic-delete-button"
-                          onClick={() => remove(field.name)}
-                        />
-                      ) : null}
+                      <Space>
+                        <Form.Item
+                          {...field}
+                          validateTrigger={["onChange", "onBlur"]}
+                          rules={[{ required: true }]}
+                          noStyle
+                        >
+                          <Select
+                            showSearch
+                            placeholder="Select a title"
+                            optionFilterProp="children"
+                            options={dataTrack}
+                          />
+                        </Form.Item>
+
+                        {fields.length > 1 ? (
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(field.name)}
+                          />
+                        ) : null}
+                      </Space>
                     </Form.Item>
                   );
                 })}
