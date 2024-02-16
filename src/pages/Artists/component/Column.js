@@ -12,7 +12,7 @@ export const Columns = ({ onSelect }) => {
       },
     },
     {
-      title: "Artits Name",
+      title: "Artist Name",
       dataIndex: "artits_name",
       key: "artits_name",
       render: (_, item, index) => {

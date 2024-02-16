@@ -142,7 +142,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
 
           <Form.Item
             name="artits"
-            label="Artits"
+            label="Artist"
             rules={[
               {
                 required: true,
@@ -163,7 +163,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
                 {fields.map((field, index) => {
                   return (
                     <Form.Item
-                      label={"Artits"}
+                      label={"Artist"}
                       required={false}
                       key={field.key}
                     >
@@ -195,7 +195,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
                   icon={<PlusCircleOutlined />}
                   onClick={() => add()}
                 >
-                  {"Add Artits"}
+                  {"Add Artist"}
                 </Button>
               </>
             )}

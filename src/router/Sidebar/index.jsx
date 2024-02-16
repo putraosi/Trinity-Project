@@ -36,7 +36,7 @@ const Sidebar = ({ children }) => {
 
         <Dropdown menu={{ items: items(navigate) }}>
           <div className="container_profile">
-            <p>{"Adimn"}</p>
+            <p>{"Admin"}</p>
 
             <img src={DPhoto} />
           </div>

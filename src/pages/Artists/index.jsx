@@ -48,7 +48,7 @@ const Artists = () => {
 
   return (
     <Spin spinning={loading}>
-      <Container title={"Artits"}>
+      <Container title={"Artist"}>
         <Search
           value={search}
           placeholder="input search text"

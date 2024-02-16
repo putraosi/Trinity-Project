@@ -68,7 +68,7 @@ const ModalAddPerson = ({ type, isOpen, onOk, onCancel }) => {
                 {fields.map((field, index) => {
                   return (
                     <Form.Item
-                      label={"Artits"}
+                      label={"Artist"}
                       required={false}
                       key={field.key}
                     >
@@ -100,7 +100,7 @@ const ModalAddPerson = ({ type, isOpen, onOk, onCancel }) => {
                   icon={<PlusCircleOutlined />}
                   onClick={() => add()}
                 >
-                  {"Add Artits"}
+                  {"Add Artist"}
                 </Button>
               </>
             )}

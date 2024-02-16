@@ -21,7 +21,7 @@ export const Columns = ({ onSelect }) => {
       },
     },
     {
-      title: "Artits",
+      title: "Artist",
       dataIndex: "artits",
       key: "artits",
       render: (_, item, index) => {
