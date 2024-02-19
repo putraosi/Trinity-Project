@@ -92,7 +92,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
     const body = {
       release: {
         title: field?.release_title,
-        releaseDate: moments(field?.release_date).format("YYYY-MM-DD"),
+        releaseDate: moments(field?.release_date?.$d).format("YYYY-MM-DD"),
       },
       tracks: newTrack,
     };
