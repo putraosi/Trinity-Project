@@ -80,7 +80,7 @@ const Release = () => {
           type="primary"
           onClick={() => setIsOpenAdd(true)}
         >
-          Add File
+          Add Release
         </Button>
 
         <Table

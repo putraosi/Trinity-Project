@@ -79,7 +79,7 @@ const Artists = () => {
           type="primary"
           onClick={() => setIsOpenAdd(true)}
         >
-          Add File
+          Add Artist
         </Button>
 
         <Table

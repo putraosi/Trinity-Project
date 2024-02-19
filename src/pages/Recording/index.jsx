@@ -80,7 +80,7 @@ const Recording = () => {
           type="primary"
           onClick={() => setIsOpenAdd(true)}
         >
-          Add File
+          Add Recording
         </Button>
 
         <Table
