@@ -3,12 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ARTITS_PATH,
-  COMPOSERS_PATH,
-  LABEL_PATH,
-  PERSONS_PATH,
-  PUBLISHERS_PATH,
   RECORDING_PATH,
-  RELEASE_PATH,
+  RELEASE_PATH
 } from "../../utils";
 
 function getItem(label, key, icon, children, type) {
@@ -23,8 +19,8 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem("Sound Recordings", "sound_recording", null, [
-    getItem("Releases", RELEASE_PATH),
     getItem("Recordings", RECORDING_PATH),
+    getItem("Releases", RELEASE_PATH),
   ]),
   getItem("Contributors", "contributors", null, [
     getItem("Artists", ARTITS_PATH),
@@ -52,7 +48,7 @@ const MenuBar = () => {
         height: "100vh",
         position: "fixed",
       }}
-      defaultSelectedKeys={[RELEASE_PATH]}
+      defaultSelectedKeys={[RECORDING_PATH]}
       defaultOpenKeys={["sound_recording"]}
       mode="inline"
       items={items}

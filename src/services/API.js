@@ -87,4 +87,26 @@ export const Api = {
       throw dataError;
     }
   },
+
+  delete: async ({ url, body, showLog }) => {
+    if (showLog) {
+      console.log("API URL", url);
+      console.log("API BODY", body);
+    }
+
+    try {
+      const res = await api.delete(url, body);
+
+      if (showLog) console.log("API RES", res?.data);
+
+      return res?.data;
+    } catch (error) {
+      let dataError = error;
+      if (showLog) console.log("API ERROR", error);
+
+      if (error?.response?.data) dataError = error?.response?.data;
+
+      throw dataError;
+    }
+  },
 };

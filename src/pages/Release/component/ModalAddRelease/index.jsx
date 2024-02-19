@@ -83,13 +83,15 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
         });
       });
 
-    return {
+    const body = {
       release: {
         title: field?.release_title,
         releaseDate: moments(field?.release_date).format("YYYY-MM-DD"),
       },
       tracks: newTrack,
     };
+
+    return body;
   };
 
   const onAdd = async () => {

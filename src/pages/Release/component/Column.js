@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Button } from "antd";
 import React from "react";
 import { moments } from "../../../helpers";
 
@@ -20,14 +21,14 @@ export const Columns = ({ onSelect }) => {
         return <a onClick={() => onSelect(item)}>{item?.title}</a>;
       },
     },
-    {
-      title: "Artist",
-      dataIndex: "artits",
-      key: "artits",
-      render: (_, item, index) => {
-        return <p>{"-"}</p>;
-      },
-    },
+    // {
+    //   title: "Artist",
+    //   dataIndex: "artits",
+    //   key: "artits",
+    //   render: (_, item, index) => {
+    //     return <p>{"-"}</p>;
+    //   },
+    // },
     {
       title: "Date of Releases",
       dataIndex: "date_of_releases",
@@ -42,6 +43,22 @@ export const Columns = ({ onSelect }) => {
       key: "number_of_track",
       render: (_, item, index) => {
         return <p>{item?.releaseRecording.length}</p>;
+      },
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_, item, index) => {
+        const body = {
+          type: "delete",
+          id: item?.id,
+        };
+        return (
+          <Button type="primary" danger onClick={() => onSelect(body)}>
+            Delete
+          </Button>
+        );
       },
     },
   ];

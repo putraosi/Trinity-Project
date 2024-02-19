@@ -13,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const res = getData(USER);
@@ -39,7 +40,7 @@ const Login = () => {
       navigate("/release", { replace: true });
       setLoading(false);
     } catch (error) {
-      alert(error?.message);
+      setIsError(true);
       setLoading(false);
     }
   };
@@ -69,7 +70,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input />
+            <Input onChange={() => setIsError(false)} />
           </Form.Item>
 
           <Form.Item
@@ -82,8 +83,10 @@ const Login = () => {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password onChange={() => setIsError(false)} />
           </Form.Item>
+
+          {isError && <p className="error">{"Email/Password are incorrect"}</p>}
 
           <Form.Item
             wrapperCol={{

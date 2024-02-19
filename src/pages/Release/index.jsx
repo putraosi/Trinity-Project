@@ -7,8 +7,6 @@ import { EDIT } from "../../utils";
 import "./Release.css";
 import { Columns, ModalAddRelease } from "./component";
 
-const dataDummy = [1, 2, 3, 4, 5];
-
 const Release = () => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -26,7 +24,7 @@ const Release = () => {
       const res = await Api.get({
         url: "releases",
         params: {
-          name,
+          title: name,
         },
       });
 
@@ -38,9 +36,28 @@ const Release = () => {
     }
   };
 
+  const deleteRelease = async (id) => {
+    setLoading(true);
+
+    try {
+      await Api.delete({
+        url: `releases/${id}`,
+        showLog: true,
+      });
+      getLists();
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
+  };
+
   const onSelect = (select) => {
-    setDataSelected(select);
-    setIsOpenEdit(true);
+    if (select?.type === "delete") {
+      deleteRelease(select.id);
+    } else {
+      setDataSelected(select);
+      setIsOpenEdit(true);
+    }
   };
 
   const onSearch = (value) => {

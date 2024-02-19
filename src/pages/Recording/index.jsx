@@ -36,9 +36,28 @@ const Recording = () => {
     }
   };
 
+  const deleteRecording = async (id) => {
+    setLoading(true);
+
+    try {
+      await Api.delete({
+        url: `recordings/${id}`,
+        showLog: true,
+      });
+      getLists();
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
+  };
+
   const onSelect = (select) => {
-    setDataSelected(select);
-    setIsOpenEdit(true);
+    if (select?.type === "delete") {
+      deleteRecording(select.id);
+    } else {
+      setDataSelected(select);
+      setIsOpenEdit(true);
+    }
   };
 
   const onSearch = (value) => {

@@ -24,7 +24,7 @@ const Artists = () => {
       const res = await Api.get({
         url: "artists",
         params: {
-          name,
+          title: name,
         },
       });
 
@@ -36,9 +36,27 @@ const Artists = () => {
     }
   };
 
+  const deleteArtits = async (id) => {
+    setLoading(true)
+
+    try {
+      await Api.delete({
+        url: `artists/${id}`,
+      });
+      getLists();
+    } catch (error) {
+      alert(error?.message);
+      setLoading(false);
+    }
+  };
+
   const onSelect = (select) => {
-    setDataSelected(select);
-    setIsOpenEdit(true);
+    if (select?.type === "delete") {
+      deleteArtits(select.id);
+    } else {
+      setDataSelected(select);
+      setIsOpenEdit(true);
+    }
   };
 
   const onSearch = (value) => {
@@ -67,7 +85,6 @@ const Artists = () => {
         <Table
           columns={Columns({ onSelect: (select) => onSelect(select) })}
           dataSource={data}
-          
         />
 
         <ModalAddArtits

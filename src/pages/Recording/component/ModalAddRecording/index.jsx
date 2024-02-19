@@ -130,7 +130,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
 
           <Form.Item
             name="duration"
-            label="Duration"
+            label="Duration(s)"
             rules={[
               {
                 required: true,

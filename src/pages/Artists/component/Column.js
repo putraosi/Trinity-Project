@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Button } from "antd";
 import React from "react";
 
 export const Columns = ({ onSelect }) => {
@@ -16,23 +17,47 @@ export const Columns = ({ onSelect }) => {
       dataIndex: "artits_name",
       key: "artits_name",
       render: (_, item, index) => {
-        return <a onClick={() => onSelect(item)}>{`${item?.firstName} ${item?.lastName}` }</a>;
+        return (
+          <a
+            onClick={() => onSelect(item)}
+          >{`${item?.firstName} ${item?.lastName}`}</a>
+        );
       },
     },
     {
-      title: "Number of Recordings",
-      dataIndex: "number_of_recording",
-      key: "number_of_recording",
+      title: "Royalty Rate",
+      dataIndex: "royalty_rate",
+      key: "royalty_rate",
       render: (_, item, index) => {
-        return <p>{item?.royaltyRate}</p>;
+        return <p>{item?.royaltyRate || "-"}</p>;
       },
     },
     {
-      title: "Number of Releases",
-      dataIndex: "number_of_releases",
-      key: "number_of_releases",
+      title: "Contract Number",
+      dataIndex: "contract_num",
+      key: "contract_num",
       render: (_, item, index) => {
-        return <p>{item?.contractNum}</p>;
+        return <p>{item?.contractNum || "-"}</p>;
+      },
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_, item, index) => {
+        const body = {
+          type: "delete",
+          id: item?.id,
+        };
+        return (
+          <Button
+            type="primary"
+            danger
+            onClick={() => onSelect(body)}
+          >
+            Delete
+          </Button>
+        );
       },
     },
   ];
