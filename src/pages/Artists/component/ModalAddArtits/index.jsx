@@ -19,6 +19,16 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
     }
   }, [isOpen]);
 
+  const onValidation = () => {
+    form
+      .validateFields()
+      .then((res) => {
+        if (type === EDIT) onEdit();
+        else onAdd();
+      })
+      .catch((e) => console.log("error", e));
+  };
+
   const onAdd = async () => {
     const data = form.getFieldValue();
 
@@ -71,7 +81,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
     <Modal
       title={type === EDIT ? "Edit Artist" : "Add Artist"}
       open={isOpen}
-      onOk={() => (type === EDIT ? onEdit() : onAdd())}
+      onOk={() => onValidation()}
       confirmLoading={loading}
       onCancel={onCancel}
     >
