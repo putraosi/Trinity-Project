@@ -175,7 +175,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker value={moments()} />
           </Form.Item>
 
           <Form.List name="release_title_track">

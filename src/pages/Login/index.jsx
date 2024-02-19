@@ -37,7 +37,7 @@ const Login = () => {
       storeData(TOKEN, res?.token);
       storeData(USER, decode);
 
-      navigate("/release", { replace: true });
+      navigate(ARTITS_PATH, { replace: true });
       setLoading(false);
     } catch (error) {
       setIsError(true);

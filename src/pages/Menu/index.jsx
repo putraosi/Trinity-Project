@@ -39,7 +39,7 @@ const MenuBar = () => {
         position: "fixed",
       }}
       defaultSelectedKeys={[ARTITS_PATH]}
-      defaultOpenKeys={["sound_recording"]}
+      defaultOpenKeys={["contributors"]}
       mode="inline"
       items={items}
     />
