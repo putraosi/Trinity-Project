@@ -24,7 +24,7 @@ const Artists = () => {
       const res = await Api.get({
         url: "artists",
         params: {
-          title: name,
+          name,
         },
       });
 

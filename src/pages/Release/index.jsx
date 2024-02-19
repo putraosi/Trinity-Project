@@ -24,7 +24,7 @@ const Release = () => {
       const res = await Api.get({
         url: "releases",
         params: {
-          title: name,
+          name,
         },
       });
 
