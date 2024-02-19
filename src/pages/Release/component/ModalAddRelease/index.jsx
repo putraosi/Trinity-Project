@@ -35,6 +35,12 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    return () => {
+      form.resetFields();
+    };
+  }, []);
+
   const getTracks = async () => {
     try {
       const res = await Api.get({
@@ -94,6 +100,16 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
     return body;
   };
 
+  const onValidation = () => {
+    form
+      .validateFields()
+      .then((res) => {
+        if (type === EDIT) onEdit();
+        else onAdd();
+      })
+      .catch((e) => console.log("error", e));
+  };
+
   const onAdd = async () => {
     try {
       const body = setBody();
@@ -114,7 +130,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
   const onEdit = async () => {
     try {
       const body = setBody();
-      await Api.post({
+      await Api.put({
         url: `releases/${data?.id}`,
         body,
       });
@@ -133,7 +149,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
       title={type === EDIT ? "Edit Release" : "Add Release"}
       open={isOpen}
       confirmLoading={loadingTrack || loading}
-      onOk={() => (type === EDIT ? onEdit() : onAdd())}
+      onOk={() => onValidation()}
       onCancel={onCancel}
       width={600}
     >
@@ -144,7 +160,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
           <Form.Item
             name="release_title"
             label="Release Title"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Release Title is required!" }]}
           >
             <Input />
           </Form.Item>
@@ -155,7 +171,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
             rules={[
               {
                 required: true,
-                message: "Please select time!",
+                message: "Release Date is required!",
               },
             ]}
           >
@@ -187,7 +203,12 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                         <Form.Item
                           {...field}
                           validateTrigger={["onChange", "onBlur"]}
-                          rules={[{ required: true }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Release Title is required!",
+                            },
+                          ]}
                           noStyle
                         >
                           <Select

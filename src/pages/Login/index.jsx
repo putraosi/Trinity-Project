@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Separator } from "../../components";
 import { getData, storeData } from "../../helpers";
 import { Api } from "../../services";
-import { TOKEN, USER, formItemLayout } from "../../utils";
+import { ARTITS_PATH, TOKEN, USER, formItemLayout } from "../../utils";
 import "./Login.css";
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
   useEffect(() => {
     const res = getData(USER);
 
-    if (res) navigate("/release", { replace: true });
+    if (res) navigate(ARTITS_PATH, { replace: true });
   }, []);
 
   const onFinish = async (values) => {

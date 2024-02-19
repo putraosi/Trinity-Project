@@ -82,7 +82,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
           <Form.Item
             name="artits_name"
             label="Artist Name"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Artist Name is required!" }]}
           >
             <Input />
           </Form.Item>
@@ -90,7 +90,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
           <Form.Item
             name="royalty_rate"
             label="Royalty Rate"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Royalty Rate is required!" }]}
           >
             <Input />
           </Form.Item>
@@ -98,7 +98,7 @@ const ModalAddArtits = ({ type, data, isOpen, onOk, onCancel }) => {
           <Form.Item
             name="contact_no"
             label="Contract No"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Contract No is required!" }]}
           >
             <Input />
           </Form.Item>

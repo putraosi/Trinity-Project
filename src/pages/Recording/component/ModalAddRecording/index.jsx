@@ -25,6 +25,12 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    return () => {
+      form.resetFields();
+    };
+  }, []);
+
   const getArtits = async (name = "") => {
     try {
       const res = await Api.get({
@@ -62,6 +68,16 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
     }
 
     return newData;
+  };
+
+  const onValidation = () => {
+    form
+      .validateFields()
+      .then((res) => {
+        if (type === EDIT) onEdit();
+        else onAdd();
+      })
+      .catch((e) => console.log("error", e));
   };
 
   const onAdd = async () => {
@@ -113,7 +129,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
       title={type === EDIT ? "Edit Recording" : "Add Recording"}
       open={isOpen}
       confirmLoading={loading || loadingArtits}
-      onOk={() => (type === EDIT ? onEdit() : onAdd())}
+      onOk={() => onValidation()}
       onCancel={onCancel}
     >
       <div className="container_modal">
@@ -123,7 +139,9 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
           <Form.Item
             name="recording_title"
             label="Recording Title"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Recording Title is required!" },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -134,6 +152,8 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
             rules={[
               {
                 required: true,
+                message: "Duration is required and number only!",
+                pattern: new RegExp(/^[0-9]+$/)
               },
             ]}
           >
@@ -146,6 +166,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
             rules={[
               {
                 required: true,
+                message: "Artist is required!" 
               },
             ]}
           >

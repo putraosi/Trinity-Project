@@ -1,11 +1,7 @@
 import { Menu } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ARTITS_PATH,
-  RECORDING_PATH,
-  RELEASE_PATH
-} from "../../utils";
+import { ARTITS_PATH, RECORDING_PATH, RELEASE_PATH } from "../../utils";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -24,13 +20,7 @@ const items = [
   ]),
   getItem("Contributors", "contributors", null, [
     getItem("Artists", ARTITS_PATH),
-    // getItem("Persons", PERSONS_PATH),
-    // getItem("Composers", COMPOSERS_PATH),
   ]),
-  // getItem("Companies", "companies", null, [
-  //   getItem("Label", LABEL_PATH),
-  //   getItem("Publishers", PUBLISHERS_PATH),
-  // ]),
 ];
 
 const MenuBar = () => {
@@ -48,7 +38,7 @@ const MenuBar = () => {
         height: "100vh",
         position: "fixed",
       }}
-      defaultSelectedKeys={[RECORDING_PATH]}
+      defaultSelectedKeys={[ARTITS_PATH]}
       defaultOpenKeys={["sound_recording"]}
       mode="inline"
       items={items}
