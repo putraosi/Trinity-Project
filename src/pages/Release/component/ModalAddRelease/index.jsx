@@ -175,9 +175,8 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                 message: "Release Date is required!",
               },
             ]}
-            initialValue={moments(data?.releaseDate)}
           >
-            <DatePicker />
+            <DatePicker  />
           </Form.Item>
 
           <Form.List name="release_title_track">
