@@ -15,6 +15,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
   const [loadingTrack, setLoadingTrack] = useState(true);
   const [dataTrack, setDataTrack] = useState();
 
+  console.log("cek data", data);
   useEffect(() => {
     if (isOpen) {
       setLoadingTrack(true);
@@ -174,8 +175,9 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                 message: "Release Date is required!",
               },
             ]}
+            initialValue={moments(data?.releaseDate)}
           >
-            <DatePicker value={moments()} />
+            <DatePicker />
           </Form.Item>
 
           <Form.List name="release_title_track">
@@ -195,7 +197,7 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                 {fields.map((field, index) => {
                   return (
                     <Form.Item
-                      label={"Release Title"}
+                      label={"Recording Title"}
                       required={false}
                       key={field.key}
                     >
@@ -206,15 +208,13 @@ const ModalAddRelease = ({ type, data, isOpen, onOk, onCancel }) => {
                           rules={[
                             {
                               required: true,
-                              message: "Release Title is required!",
+                              message: "Recording Title is required!",
                             },
                           ]}
                           noStyle
                         >
                           <Select
-                            showSearch
                             placeholder="Select a title"
-                            optionFilterProp="children"
                             options={dataTrack}
                           />
                         </Form.Item>

@@ -171,9 +171,7 @@ const ModalAddRecording = ({ type, data, isOpen, onOk, onCancel }) => {
             ]}
           >
             <Select
-              showSearch
               placeholder="Select a person"
-              optionFilterProp="children"
               options={dataArtits}
             />
           </Form.Item>
